@@ -5,25 +5,30 @@ module.exports = {
     node: true
   },
 
-  extends: [
-    'plugin:vue/essential',
-    '@vue/standard'
-  ],
+  extends: ["plugin:vue/essential", "@vue/standard"],
 
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: "babel-eslint"
   },
 
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 1,
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 1
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : 1,
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : 1,
+    "template-curly-spacing": "off",
+    indent: [
+      "error",
+      2,
+      {
+        ignoredNodes: ["TemplateLiteral"]
+      }
+    ]
   },
 
   overrides: [
     {
       files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
       ],
       env: {
         jest: true
@@ -31,5 +36,5 @@ module.exports = {
     }
   ],
 
-  ignorePatterns: ['*.spec.js']
-}
+  ignorePatterns: ["*.spec.js"]
+};
