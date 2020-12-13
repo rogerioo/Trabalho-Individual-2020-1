@@ -16,6 +16,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
