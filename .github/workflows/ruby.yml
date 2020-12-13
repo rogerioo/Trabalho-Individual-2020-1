@@ -21,6 +21,10 @@ jobs:
         working-directory: api
     steps:
     - uses: actions/checkout@v2
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.4
+      with:
+        projectBaseDir: api
     - name: Set up Ruby
     # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
     # change this to (see https://github.com/ruby/setup-ruby#versioning):
