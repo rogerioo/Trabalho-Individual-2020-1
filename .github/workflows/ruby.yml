@@ -24,8 +24,12 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build api docker
-      run: docker-compose up -d api db
+      run: docker-compose up -d api
       env:
         DB_HOST: localhost
+    - name: Create db
+      run: docker-compose exec api rake db:create
+    - name: Make migrations
+      run: docker-compose exec api rake db:migrate
     - name: Run tests
       run: docker-compose exec api rake test
