@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: code-coverage-report
-          path: ./coverage/.resultset.json
+          path: ./api/coverage/.resultset.json
 
   code_quality:
     needs: [build_and_tests]
@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: code-coverage-report
-          path: ./coverage/.resultset.json
+          path: ./api/coverage/.resultset.json
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
