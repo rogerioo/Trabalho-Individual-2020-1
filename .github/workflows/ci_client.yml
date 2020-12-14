@@ -28,7 +28,7 @@ jobs:
       - name: Build api docker
         run: docker-compose up -d client
       - name: Run tests
-        run: docker-compose run client npm run test:unit
+        run: docker-compose run client yarn test:unit
 
   code_quality:
     runs-on: ubuntu-latest
