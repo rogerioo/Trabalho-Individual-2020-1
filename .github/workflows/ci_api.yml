@@ -10,23 +10,16 @@ name: CI-api
 on:
   push:
     branches: [ master ]
-    paths: 
+    paths:
       - 'api/**'
   pull_request:
     branches: [ master ]
-    paths: 
+    paths:
       - 'api/**'
 
 jobs:
   build_and_tests:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.4
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build api docker
       run: docker-compose up -d api
       env:
