@@ -6,7 +6,7 @@ RUN apk add git
 
 COPY . .
 
-RUN npm install --silent
+RUN npm update && npm install --silent
 
 EXPOSE 8080
 
