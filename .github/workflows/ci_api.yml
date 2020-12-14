@@ -44,6 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
+    needs: [build_and_tests, code_quality]
     runs-on: ubuntu-latest
     defaults:
       run:
