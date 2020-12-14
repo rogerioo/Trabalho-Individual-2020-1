@@ -1,12 +1,14 @@
-FROM node
+FROM node:alpine
 
 WORKDIR /usr/app
 
+COPY package*.json ./
+
 RUN apk add git
 
-COPY . .
+RUN npm install --silent
 
-RUN npm install
+COPY . .
 
 EXPOSE 8080
 
