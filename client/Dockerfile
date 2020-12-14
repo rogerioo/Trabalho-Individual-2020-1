@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node
 
 WORKDIR /usr/app
 
@@ -6,7 +6,7 @@ RUN apk add git
 
 COPY . .
 
-RUN npm update && npm install --silent
+RUN npm install
 
 EXPOSE 8080
 
