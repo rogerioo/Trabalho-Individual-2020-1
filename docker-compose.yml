@@ -25,7 +25,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./client:/usr/app
-      - "usr/app/node_modules"
+      - "/usr/app/node_modules"
     ports:
       - "8080:8080"
     depends_on:
