@@ -32,11 +32,22 @@ jobs:
         run: docker-compose run api rake db:migrate
       - name: Run tests
         run: docker-compose run api rake test
+      - name: Upload code coverage results
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage-report
+          path: ./coverage/.resultset.json
 
   code_quality:
+    needs: [build_and_tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Download code coverage results
+        uses: actions/download-artifact@v2
+        with:
+          name: code-coverage-report
+          path: ./coverage/.resultset.json
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
