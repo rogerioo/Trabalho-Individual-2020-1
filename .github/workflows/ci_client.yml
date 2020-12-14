@@ -9,28 +9,30 @@ name: CI-client
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'client/**'
+      - "client/**"
   pull_request:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'client/**'
+      - "client/**"
 
 jobs:
   build_and_tests:
     runs-on: ubuntu-latest
-    - name: Build api docker
-      run: docker-compose up -d client
-    - name: Run tests
-      run: docker-compose run client npm run test:unit
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build api docker
+        run: docker-compose up -d client
+      - name: Run tests
+        run: docker-compose run client npm run test:unit
 
   code_quality:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.4
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

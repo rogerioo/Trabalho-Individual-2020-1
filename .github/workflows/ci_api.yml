@@ -9,34 +9,36 @@ name: CI-api
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'api/**'
+      - "api/**"
   pull_request:
-    branches: [ master ]
+    branches: [master]
     paths:
-      - 'api/**'
+      - "api/**"
 
 jobs:
   build_and_tests:
     runs-on: ubuntu-latest
-    - name: Build api docker
-      run: docker-compose up -d api
-      env:
-        DB_HOST: localhost
-    - name: Create db
-      run: docker-compose run api rake db:create
-    - name: Make migrations
-      run: docker-compose run api rake db:migrate
-    - name: Run tests
-      run: docker-compose run api rake test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build api docker
+        run: docker-compose up -d api
+        env:
+          DB_HOST: localhost
+      - name: Create db
+        run: docker-compose run api rake db:create
+      - name: Make migrations
+        run: docker-compose run api rake db:migrate
+      - name: Run tests
+        run: docker-compose run api rake test
 
   code_quality:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.4
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
