@@ -16,9 +16,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: api
     steps:
     - uses: actions/checkout@v2
     - name: SonarCloud Scan
@@ -26,16 +23,9 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@21351ecc0a7c196081abca5dc55b08f085efe09a
-      with:
-        ruby-version: 2.5.7
-    - name: Install dependencies
-      run: bundle install
-    - name: Run tests
-      run: bundle exec rails test
+    - name: Build api docker
+      run: docker-compose up -d api db
       env:
         DB_HOST: localhost
+    - name: Run tests
+      run: docker-compose exec api rake test
