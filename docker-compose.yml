@@ -11,6 +11,8 @@ services:
       - db
     volumes:
       - ./api:/api
+    environment:
+      - DB_HOST=db
 
   db:
     image: postgres
